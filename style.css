@@ -1,0 +1,418 @@
+/* =========================================================
+   Pretty's Debut Party — styles
+   Palette: Snorlax teal/cream · Jigglypuff pink · Hello Kitty white/red
+   ========================================================= */
+
+:root{
+  --teal:#2f4f6e;
+  --teal-deep:#1d2f43;
+  --cream:#f6eed6;
+  --pink:#ff9ec6;
+  --pink-soft:#ffe3f1;
+  --pink-hot:#ff4d8d;
+  --mint:#b9ead4;
+  --kitty-red:#ff4d6d;
+  --ink:#34303a;
+  --paper:#fff8ef;
+  --sky-1:#ffe9f4;
+  --sky-2:#dcf3ff;
+  --sky-3:#fff6dc;
+  --shadow:0 10px 0 rgba(47,79,110,.18);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Baloo 2',system-ui,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(160deg,var(--sky-1),var(--sky-2) 55%,var(--sky-3));
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ---- animated soft sky ---- */
+.sky{
+  position:fixed; inset:0; z-index:-2;
+  background:
+    radial-gradient(closest-side at 18% 22%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(closest-side at 82% 30%, rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(closest-side at 60% 80%, rgba(255,255,255,.5), transparent 60%);
+  animation:skyDrift 18s ease-in-out infinite alternate;
+}
+@keyframes skyDrift{to{transform:translateY(-14px) scale(1.04);}}
+
+/* ---- floating decorations ---- */
+.floaties{position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;}
+.floaty{
+  position:absolute; bottom:-60px; font-size:1.8rem; opacity:.0;
+  animation:rise linear infinite;
+  filter:drop-shadow(0 4px 4px rgba(0,0,0,.08));
+}
+@keyframes rise{
+  0%{transform:translateY(0) rotate(0); opacity:0;}
+  10%{opacity:.85;}
+  90%{opacity:.85;}
+  100%{transform:translateY(-115vh) rotate(220deg); opacity:0;}
+}
+
+/* =========================================================
+   GATE (Snorlax blocks the road)
+   ========================================================= */
+.gate{
+  position:fixed; inset:0; z-index:50;
+  display:grid; place-items:center; text-align:center;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #2b4a68 0%, #1b3047 55%, #14233a 100%);
+  color:#fff; padding:24px;
+  transition:opacity .7s ease, transform .7s ease;
+}
+.gate.lifting{opacity:0; transform:translateY(-40px); pointer-events:none;}
+.gate-inner{max-width:560px;}
+.gate-kicker{
+  font-family:'Press Start 2P',monospace; font-size:.62rem; letter-spacing:1px;
+  color:var(--mint); margin:0 0 14px; animation:blink 1.6s steps(2) infinite;
+}
+@keyframes blink{50%{opacity:.35;}}
+.gate-title{
+  font-family:'Baloo 2'; font-weight:800; font-size:clamp(1.4rem,5vw,2.3rem);
+  line-height:1.15; margin:0 0 6px;
+}
+.gate-title span{color:var(--mint);}
+.snorlax-stage{margin:18px auto; width:min(320px,82vw);}
+.gate-hint{font-size:1.02rem; opacity:.9; margin:6px auto 18px; max-width:34ch;}
+
+.flute-btn{
+  font-family:'Baloo 2'; font-weight:800; font-size:1.1rem; color:var(--teal-deep);
+  background:linear-gradient(180deg,#fff,#ffe9c9);
+  border:0; border-radius:999px; padding:15px 30px; cursor:pointer;
+  box-shadow:0 8px 0 #b88a3e, 0 14px 22px rgba(0,0,0,.3);
+  transition:transform .12s, box-shadow .12s;
+}
+.flute-btn:hover{transform:translateY(-2px);}
+.flute-btn:active{transform:translateY(6px); box-shadow:0 2px 0 #b88a3e;}
+.flute-note{display:inline-block; animation:noteWiggle 1s ease-in-out infinite;}
+@keyframes noteWiggle{50%{transform:translateY(-3px) rotate(-12deg);}}
+.gate-foot{margin-top:22px; font-family:'Gochi Hand',cursive; font-size:1.3rem; color:#ffd9ea;}
+.gate-foot strong{color:#fff;}
+
+/* Snorlax sleeping/awake states */
+.snorlax{width:100%; height:auto; display:block;}
+.snor-awake{opacity:0; transition:opacity .4s ease .2s;}
+.zzz{
+  font-family:'Press Start 2P',monospace; fill:#bfe6ff; font-size:18px;
+  opacity:0; animation:zfloat 3s ease-in-out infinite;
+}
+.z1{animation-delay:0s;} .z2{animation-delay:.6s;} .z3{animation-delay:1.2s;}
+@keyframes zfloat{
+  0%{opacity:0; transform:translateY(6px);}
+  30%{opacity:1;} 70%{opacity:1;}
+  100%{opacity:0; transform:translateY(-12px);}
+}
+.snor-body{transform-origin:center bottom; animation:breathe 3.4s ease-in-out infinite;}
+@keyframes breathe{50%{transform:scaleY(1.03) scaleX(1.01);}}
+
+/* awake reaction */
+.gate.awake .snor-eye{opacity:0;}
+.gate.awake .snor-awake{opacity:1;}
+.gate.awake .zzz{display:none;}
+.gate.awake .snor-body{animation:wiggleUp .8s ease;}
+@keyframes wiggleUp{
+  0%,100%{transform:none;}
+  25%{transform:translateX(-8px) rotate(-3deg);}
+  60%{transform:translateX(10px) rotate(3deg) translateY(-10px);}
+}
+
+/* =========================================================
+   PARTY
+   ========================================================= */
+.party{position:relative; z-index:1;}
+.party[hidden]{display:none;}
+
+.hero{padding:40px 20px 10px; text-align:center; max-width:1000px; margin:0 auto;}
+.banner{
+  position:relative; display:inline-block;
+  background:var(--paper);
+  border:5px solid var(--teal);
+  border-radius:26px; padding:18px 40px;
+  box-shadow:var(--shadow);
+}
+.banner::before,.banner::after{
+  content:""; position:absolute; top:-16px; width:14px; height:30px;
+  background:var(--kitty-red); border-radius:3px; transform:rotate(8deg);
+}
+.banner::before{left:24px;} .banner::after{right:24px; transform:rotate(-8deg);}
+.pin{position:absolute; color:var(--pink-hot); font-size:1.2rem; top:8px;}
+.pin-l{left:12px;} .pin-r{right:12px;}
+.hero-kicker{font-family:'Gochi Hand',cursive; font-size:1.4rem; color:var(--pink-hot); margin:0;}
+.hero-title{
+  font-family:'Press Start 2P',monospace; font-size:clamp(1.1rem,4.4vw,2.1rem);
+  line-height:1.5; margin:6px 0; color:var(--teal);
+  text-shadow:3px 3px 0 var(--pink);
+}
+.hero-title span{color:var(--pink-hot); text-shadow:3px 3px 0 var(--teal);}
+.hero-sub{font-family:'Baloo 2'; font-weight:700; margin:4px 0 0; color:var(--teal-deep);}
+
+/* hero stage */
+.hero-stage{
+  display:flex; align-items:flex-end; justify-content:center; gap:clamp(4px,2vw,26px);
+  margin:30px auto 8px; flex-wrap:nowrap;
+}
+.host-jiggly,.host-kitty{width:clamp(78px,16vw,150px); height:auto;}
+.host-jiggly{animation:bobL 3s ease-in-out infinite;}
+.host-kitty{animation:bobR 3.4s ease-in-out infinite;}
+@keyframes bobL{50%{transform:translateY(-10px) rotate(-4deg);}}
+@keyframes bobR{50%{transform:translateY(-12px) rotate(4deg);}}
+.jiggly-curl{animation:curlSpring 4s ease-in-out infinite; transform-origin:70px 40px;}
+@keyframes curlSpring{50%{transform:rotate(8deg);}}
+
+/* photo frame */
+.photo-frame{
+  margin:0; position:relative;
+  background:#fff; padding:14px 14px 42px; border-radius:8px;
+  box-shadow:0 12px 24px rgba(47,79,110,.28), inset 0 0 0 2px #ffe3f1;
+  transform:rotate(-2deg); transition:transform .3s;
+  width:clamp(170px,42vw,250px);
+}
+.photo-frame:hover{transform:rotate(0) scale(1.02);}
+.photo-window{
+  position:relative; aspect-ratio:1/1; border-radius:5px; overflow:hidden;
+  background:linear-gradient(135deg,#ffe3f1,#dcf3ff); display:grid; place-items:center;
+}
+.photo-window img{width:100%; height:100%; object-fit:cover; display:block;}
+.photo-fallback{
+  position:absolute; inset:0; display:none; flex-direction:column; gap:6px;
+  align-items:center; justify-content:center; text-align:center; padding:14px;
+  color:var(--teal);
+}
+.photo-fallback.show{display:flex;}
+.pf-emoji{font-size:2.4rem;}
+.pf-text{font-weight:700;}
+.pf-tiny{font-size:.74rem; opacity:.7;}
+.pf-tiny code{background:#fff;border-radius:4px;padding:1px 4px;}
+.photo-frame figcaption{
+  position:absolute; bottom:10px; left:0; right:0; text-align:center;
+  font-family:'Gochi Hand',cursive; font-size:1.3rem; color:var(--pink-hot);
+}
+.photo-tape{position:absolute; width:64px; height:22px; background:rgba(185,234,212,.75);
+  top:-10px; box-shadow:0 2px 4px rgba(0,0,0,.1);}
+.tape-l{left:-12px; transform:rotate(-28deg);}
+.tape-r{right:-12px; transform:rotate(28deg);}
+
+/* countdown */
+.countdown{margin:26px auto 8px; max-width:520px;}
+.cd-label{font-family:'Gochi Hand',cursive; font-size:1.5rem; color:var(--teal); margin:0 0 10px;}
+.cd-units{display:flex; justify-content:center; gap:10px;}
+.cd-cell{
+  background:var(--teal); color:#fff; border-radius:16px; padding:12px 6px; min-width:64px;
+  box-shadow:0 6px 0 var(--teal-deep);
+}
+.cd-cell span{font-family:'Press Start 2P',monospace; font-size:1.25rem; display:block;}
+.cd-cell small{font-size:.72rem; letter-spacing:1px; text-transform:uppercase; opacity:.85;}
+.cd-tz{font-weight:700; color:var(--pink-hot); margin-top:12px;}
+.countdown.party-time .cd-cell{background:var(--pink-hot); box-shadow:0 6px 0 #b8255f; animation:pop .5s;}
+@keyframes pop{50%{transform:scale(1.08);}}
+
+.scroll-cue{
+  display:inline-block; margin:20px 0 10px; text-decoration:none;
+  font-weight:700; color:var(--teal); font-family:'Baloo 2';
+}
+.scroll-cue span{display:block; font-size:1.4rem; animation:bounce 1.4s infinite;}
+@keyframes bounce{50%{transform:translateY(6px);}}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+.section{max-width:880px; margin:30px auto; padding:36px 22px; text-align:center;}
+.sec-title{
+  font-family:'Press Start 2P',monospace; font-size:clamp(.95rem,3.4vw,1.5rem);
+  color:var(--teal); text-shadow:2px 2px 0 var(--pink); margin:0 0 10px; line-height:1.5;
+}
+.sec-sub{font-family:'Baloo 2'; font-weight:600; color:var(--teal-deep); margin:0 0 26px;}
+
+/* ---- cake ---- */
+.cake-section{
+  background:var(--paper); border:5px dashed var(--mint); border-radius:30px;
+}
+.cake-wrap{display:inline-block;}
+.candles{display:flex; justify-content:center; gap:5px; flex-wrap:wrap; max-width:300px; margin:0 auto 4px;}
+.candle{width:8px; height:34px; background:repeating-linear-gradient(45deg,#ff7eb3 0 5px,#fff 5px 10px);
+  border-radius:3px; position:relative; cursor:pointer;}
+.flame{
+  position:absolute; top:-15px; left:50%; transform:translateX(-50%);
+  width:11px; height:16px; border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  background:radial-gradient(circle at 50% 70%, #fff3b0, #ffb13b 60%, #ff7a00);
+  box-shadow:0 0 12px 3px rgba(255,160,40,.7);
+  animation:flicker .25s ease-in-out infinite alternate;
+}
+@keyframes flicker{from{transform:translateX(-50%) scale(1) rotate(-3deg);}to{transform:translateX(-50%) scale(1.12) rotate(3deg);}}
+.candle.out .flame{display:none;}
+.candle.out::after{content:""; position:absolute; top:-12px; left:50%; width:3px; height:10px;
+  background:linear-gradient(#999,transparent); transform:translateX(-50%); border-radius:3px;
+  animation:smoke 1.2s ease-out forwards;}
+@keyframes smoke{to{opacity:0; transform:translateX(-50%) translateY(-14px);}}
+
+.cake{position:relative; width:230px; margin:0 auto; filter:drop-shadow(0 12px 10px rgba(47,79,110,.2));}
+.cake-top{height:18px; background:#fff4f9; border-radius:14px 14px 0 0; border:3px solid var(--pink);}
+.cake-drip{height:20px; margin-top:-8px;
+  background:
+    radial-gradient(12px 16px at 18% 0, var(--pink) 60%, transparent 62%),
+    radial-gradient(12px 20px at 40% 0, var(--pink) 60%, transparent 62%),
+    radial-gradient(12px 14px at 62% 0, var(--pink) 60%, transparent 62%),
+    radial-gradient(12px 20px at 84% 0, var(--pink) 60%, transparent 62%);
+}
+.cake-mid{height:54px; background:repeating-linear-gradient(90deg,#7ec9a6 0 18px,#b9ead4 18px 36px); border-left:3px solid #5fae8a; border-right:3px solid #5fae8a;}
+.cake-base{height:60px; background:linear-gradient(#9a6a4a,#7c5238); border-radius:0 0 16px 16px; border:3px solid #6b452f; border-top:0;}
+.cake-deco{position:absolute; font-size:1.1rem; top:50px;}
+.d1{left:18px;} .d2{left:50%; transform:translateX(-50%);} .d3{right:18px;}
+.cake-count{margin-top:18px; font-weight:700; color:var(--teal);}
+.cake-done{font-family:'Gochi Hand',cursive; font-size:1.8rem; color:var(--pink-hot); margin-top:4px;}
+
+/* ---- message / envelope ---- */
+.message-section{}
+.envelope{
+  position:relative; width:300px; height:200px; margin:10px auto; cursor:pointer;
+  perspective:900px;
+}
+.env-back{position:absolute; inset:0; background:linear-gradient(#ffd0e4,#ffbcd6); border-radius:12px;}
+.env-front{
+  position:absolute; inset:0; z-index:4; border-radius:12px;
+  background:linear-gradient(135deg,#ff9ec6,#ff7eb3);
+  clip-path:polygon(0 100%,0 28%,50% 70%,100% 28%,100% 100%);
+  box-shadow:0 10px 20px rgba(255,77,141,.3);
+}
+.env-flap{
+  position:absolute; top:0; left:0; right:0; height:60%; z-index:6;
+  background:linear-gradient(#ffb3d4,#ff8fc0);
+  clip-path:polygon(0 0,100% 0,50% 90%);
+  transform-origin:top; transition:transform .6s ease; border-radius:12px 12px 0 0;
+}
+.env-heart{
+  position:absolute; top:42%; left:50%; transform:translate(-50%,-50%); z-index:7;
+  color:#fff; font-size:1.6rem; transition:opacity .3s;
+  text-shadow:0 2px 4px rgba(0,0,0,.2); animation:heartBeat 1.2s ease-in-out infinite;
+}
+@keyframes heartBeat{50%{transform:translate(-50%,-50%) scale(1.2);}}
+.env-letter{
+  position:absolute; left:6%; right:6%; bottom:8px; z-index:5;
+  background:var(--paper); border-radius:8px; padding:18px 18px 16px;
+  box-shadow:0 6px 16px rgba(0,0,0,.18); text-align:left;
+  transform:translateY(0); opacity:0; transition:transform .7s ease, opacity .4s;
+}
+.letter-head{font-family:'Gochi Hand',cursive; font-size:1.5rem; color:var(--pink-hot); margin:0 0 6px;}
+.letter-body{font-family:'Baloo 2'; font-weight:600; line-height:1.55; margin:0; color:var(--ink); font-size:1.02rem;}
+.letter-sign{font-family:'Gochi Hand',cursive; font-size:1.25rem; color:var(--teal); margin:12px 0 0; text-align:right;}
+
+.envelope.open .env-flap{transform:rotateX(180deg); z-index:1;}
+.envelope.open .env-heart{opacity:0;}
+.envelope.open .env-letter{transform:translateY(-150px); opacity:1; z-index:8;}
+.envelope.open{height:360px;}
+.env-hint{font-family:'Gochi Hand',cursive; font-size:1.3rem; color:var(--teal); margin-top:18px;}
+.envelope.open ~ .env-hint{opacity:0;}
+
+/* ---- fun grid ---- */
+.fun-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px;}
+.fun-card{
+  background:var(--paper); border:4px solid var(--teal); border-radius:22px;
+  padding:18px 16px 22px; box-shadow:var(--shadow); display:flex; flex-direction:column;
+  align-items:center; gap:6px;
+}
+.fun-card h3{font-family:'Baloo 2'; font-weight:800; color:var(--teal); margin:4px 0 0;}
+.fun-card p{font-size:.92rem; color:var(--teal-deep); margin:0; min-height:2.4em;}
+.fun-card .mini{width:96px; height:auto;}
+.balloon-preview{font-size:2rem;}
+.fun-btn{
+  margin-top:6px; font-family:'Baloo 2'; font-weight:800; font-size:1rem; color:#fff;
+  background:linear-gradient(180deg,var(--pink),var(--pink-hot)); border:0; border-radius:999px;
+  padding:11px 22px; cursor:pointer; box-shadow:0 6px 0 #c9285f; transition:transform .12s, box-shadow .12s;
+}
+.fun-btn:hover{transform:translateY(-2px);}
+.fun-btn:active{transform:translateY(4px); box-shadow:0 2px 0 #c9285f;}
+.snor-mini-mouth, .j-mouth{transition:all .2s;}
+.snorlax.mini.happy .snor-mini-mouth{stroke-width:6;}
+.jiggly.mini.singing .j-mouth{animation:singMouth .5s ease-in-out infinite;}
+@keyframes singMouth{50%{ry:14px; transform:translateY(2px);}}
+
+/* footer */
+.foot{text-align:center; padding:30px 20px 60px;}
+.foot-gang{display:flex; justify-content:center; gap:8px; margin-bottom:8px;}
+.foot-gang svg{width:54px; height:auto; animation:bobL 3s ease-in-out infinite;}
+.foot-gang svg:nth-child(2){animation-delay:.4s;}
+.foot-gang svg:nth-child(3){animation-delay:.8s;}
+.foot p{font-family:'Gochi Hand',cursive; font-size:1.35rem; color:var(--teal);}
+
+/* music button */
+.music-btn{
+  position:fixed; right:16px; bottom:16px; z-index:60; width:52px; height:52px; border-radius:50%;
+  border:3px solid #fff; background:var(--pink-hot); color:#fff; font-size:1.3rem; cursor:pointer;
+  box-shadow:0 6px 16px rgba(0,0,0,.25); transition:transform .2s;
+}
+.music-btn.playing{animation:spin 4s linear infinite;}
+.music-btn:hover{transform:scale(1.08);}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* confetti + balloon canvas pieces (JS-created) */
+.confetti-piece{position:fixed; top:-20px; z-index:80; pointer-events:none; border-radius:2px;}
+.balloon{position:fixed; bottom:-120px; z-index:70; pointer-events:none; font-size:2.6rem;
+  animation:floatUp linear forwards;}
+@keyframes floatUp{to{transform:translateY(-130vh) translateX(var(--sway,0)); opacity:0;}}
+
+@media (max-width:520px){
+  .cd-cell{min-width:54px; padding:10px 4px;}
+  .cd-cell span{font-size:1rem;}
+  .hero-stage{gap:2px;}
+}
+
+/* =========================================================
+   REAL CHARACTER ART (official artwork) with SVG fallback
+   .char wraps a real <img> + the hand-drawn <svg> backup.
+   If the image fails to load, JS/onerror adds .no-art and the
+   drawn version shows instead — so it always works offline too.
+   ========================================================= */
+.char{position:relative; display:inline-block; line-height:0;}
+.char .real-art{
+  width:100%; height:100%; object-fit:contain; display:block;
+  filter:drop-shadow(0 8px 10px rgba(47,79,110,.22));
+}
+.char .fallback-svg{display:none; width:100%; height:auto;}
+.char.no-art .real-art{display:none;}
+.char.no-art .fallback-svg{display:block;}
+
+/* gate snorlax (real art) */
+.char-gate{width:100%;}
+.char-gate .real-art{
+  transform-origin:center bottom;
+  animation:breathe 3.4s ease-in-out infinite;
+}
+.gate.awake .char-gate .real-art{animation:wiggleUp .8s ease;}
+.zzz-overlay{position:absolute; top:0; right:4%; pointer-events:none;}
+.zzz-overlay span{
+  display:block; line-height:1; font-family:'Press Start 2P',monospace;
+  color:#bfe6ff; opacity:0; animation:zfloat 3s ease-in-out infinite;
+  text-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+.zzz-overlay .zz1{font-size:13px; animation-delay:0s;}
+.zzz-overlay .zz2{font-size:17px; margin-left:9px; animation-delay:.6s;}
+.zzz-overlay .zz3{font-size:23px; margin-left:18px; animation-delay:1.2s;}
+.gate.awake .zzz-overlay{opacity:0; display:none;}
+
+/* hosts: keep the gentle bob, ignore overflow from drop-shadow */
+.host-jiggly .real-art{animation:none;}
+
+/* mini (fun cards) sizing already from .fun-card .mini; keep square-ish */
+.char.mini{width:96px; height:96px;}
+.char-jmini.singing .real-art{animation:singBob .45s ease-in-out infinite;}
+.char-jmini.singing .fallback-svg .j-mouth{animation:singMouth .5s ease-in-out infinite;}
+@keyframes singBob{50%{transform:translateY(-6px) scale(1.05);}}
+.char-snormini.happy .real-art{animation:happyBounce .28s ease;}
+.char-snormini.happy .fallback-svg .snor-mini-mouth{stroke-width:6;}
+@keyframes happyBounce{50%{transform:scale(1.08) translateY(-4px);}}
+
+/* footer gang as real art */
+.foot-gang .char{width:54px; height:54px; animation:bobL 3s ease-in-out infinite;}
+.foot-gang .char:nth-child(2){animation-delay:.4s;}
+.foot-gang .char:nth-child(3){animation-delay:.8s;}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important;}
+}
