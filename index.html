@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>★ Pretty's Debut Party ★</title>
+<meta name="description" content="A surprise birthday party for Pretty — hosted by Snorlax, Jigglypuff & Hello Kitty." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;700;800&family=Gochi+Hand&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%9A%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+<!-- ===== Floating background decorations ===== -->
+<div class="sky" aria-hidden="true"></div>
+<div id="floaties" class="floaties" aria-hidden="true"></div>
+
+<!-- ===== SCENE 1: The Snorlax Gate (entry) ===== -->
+<section id="gate" class="gate">
+  <div class="gate-inner">
+    <p class="gate-kicker">A WILD PARTY APPEARS...</p>
+    <h1 class="gate-title">but a sleepy <span>Snorlax</span> is blocking the road!</h1>
+
+    <div class="snorlax-stage">
+      <!-- Real Snorlax artwork; hand-drawn SVG is the offline fallback -->
+      <div class="char char-gate" id="snorGateWrap">
+        <img class="real-art" alt="A sleeping Snorlax"
+             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png"
+             onerror="this.closest('.char').classList.add('no-art')" />
+        <svg class="snorlax fallback-svg" viewBox="0 0 260 220" role="img" aria-label="A sleeping Snorlax">
+          <g class="snor-body">
+            <ellipse cx="130" cy="135" rx="108" ry="80" fill="#2f4f6e"/>
+            <ellipse cx="130" cy="150" rx="84" ry="62" fill="#f3e9cf"/>
+            <path d="M55 70 q-12 -34 18 -36 q6 22 -6 40 z" fill="#2f4f6e"/>
+            <path d="M205 70 q12 -34 -18 -36 q-6 22 6 40 z" fill="#2f4f6e"/>
+            <ellipse cx="34" cy="150" rx="26" ry="34" fill="#2f4f6e"/>
+            <ellipse cx="226" cy="150" rx="26" ry="34" fill="#2f4f6e"/>
+            <g fill="#fff8e7">
+              <circle cx="22" cy="170" r="4"/><circle cx="34" cy="176" r="4"/><circle cx="46" cy="170" r="4"/>
+              <circle cx="214" cy="170" r="4"/><circle cx="226" cy="176" r="4"/><circle cx="238" cy="170" r="4"/>
+            </g>
+            <ellipse cx="86" cy="206" rx="30" ry="16" fill="#2f4f6e"/>
+            <ellipse cx="174" cy="206" rx="30" ry="16" fill="#2f4f6e"/>
+            <circle cx="86" cy="206" r="7" fill="#f3e9cf"/>
+            <circle cx="174" cy="206" r="7" fill="#f3e9cf"/>
+            <path class="snor-eye snor-eye-l" d="M92 104 q12 9 24 0" fill="none" stroke="#1d2f43" stroke-width="5" stroke-linecap="round"/>
+            <path class="snor-eye snor-eye-r" d="M144 104 q12 9 24 0" fill="none" stroke="#1d2f43" stroke-width="5" stroke-linecap="round"/>
+            <g class="snor-awake">
+              <circle cx="104" cy="102" r="7" fill="#1d2f43"/>
+              <circle cx="156" cy="102" r="7" fill="#1d2f43"/>
+              <circle cx="106" cy="100" r="2.4" fill="#fff"/>
+              <circle cx="158" cy="100" r="2.4" fill="#fff"/>
+            </g>
+            <path d="M118 124 q12 12 24 0" fill="none" stroke="#1d2f43" stroke-width="4" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <!-- Zzz float overlay (works with real art too) -->
+        <div class="zzz-overlay" aria-hidden="true">
+          <span class="zz1">z</span><span class="zz2">z</span><span class="zz3">Z</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="gate-hint" id="gateHint">Wake him gently — play the Poké Flute so the party can begin.</p>
+    <button class="flute-btn" id="fluteBtn">
+      <span class="flute-note">♪</span> Play the Poké Flute
+    </button>
+    <p class="gate-foot">for <strong>Pretty</strong> — her debut ✦ June 20</p>
+  </div>
+</section>
+
+<!-- ===== MAIN PARTY ===== -->
+<main id="party" class="party" hidden>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="banner">
+      <span class="pin pin-l">✦</span>
+      <p class="hero-kicker">welcome to</p>
+      <h1 class="hero-title">PRETTY'S<br/><span>DEBUT PARTY</span></h1>
+      <p class="hero-sub">18 years of being absolutely the best ✦ June 20</p>
+      <span class="pin pin-r">✦</span>
+    </div>
+
+    <div class="hero-stage">
+      <!-- Jigglypuff host (left) — real artwork with SVG fallback -->
+      <div class="char host-jiggly">
+        <img class="real-art" alt="Jigglypuff"
+             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png"
+             onerror="this.closest('.char').classList.add('no-art')" />
+        <svg class="jiggly fallback-svg" viewBox="0 0 200 200" role="img" aria-label="Jigglypuff">
+          <ellipse cx="100" cy="108" rx="86" ry="80" fill="#ffc3e1"/>
+          <ellipse cx="100" cy="118" rx="64" ry="56" fill="#ffe3f1"/>
+          <path d="M58 44 q-2 -26 26 -30 q-4 18 -10 34 z" fill="#ffc3e1"/>
+          <path d="M58 44 q-1 -16 14 -24 q-2 12 -6 22 z" fill="#a85a7d"/>
+          <path class="jiggly-curl" d="M70 40 q-30 -28 -2 -34 q-8 14 10 26 z" fill="#ffc3e1"/>
+          <ellipse class="j-eye" cx="74" cy="96" rx="15" ry="20" fill="#1d3b5c"/>
+          <ellipse class="j-eye" cx="126" cy="96" rx="15" ry="20" fill="#1d3b5c"/>
+          <circle cx="79" cy="89" r="5" fill="#9fe0ff"/><circle cx="131" cy="89" r="5" fill="#9fe0ff"/>
+          <circle cx="70" cy="100" r="2.5" fill="#fff"/><circle cx="122" cy="100" r="2.5" fill="#fff"/>
+          <ellipse cx="60" cy="122" rx="9" ry="6" fill="#ff9ec6"/>
+          <ellipse cx="140" cy="122" rx="9" ry="6" fill="#ff9ec6"/>
+          <path d="M92 116 q8 8 16 0" fill="none" stroke="#c14f86" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Photo frame for Pretty -->
+      <figure class="photo-frame">
+        <div class="photo-tape tape-l"></div>
+        <div class="photo-tape tape-r"></div>
+        <div class="photo-window">
+          <img id="prettyPhoto" src="assets/pretty.jpg" alt="Pretty, the birthday girl" />
+          <div class="photo-fallback" id="photoFallback">
+            <span class="pf-emoji">💚</span>
+            <span class="pf-text">Pretty's photo goes here</span>
+            <span class="pf-tiny">(add <code>assets/pretty.jpg</code>)</span>
+          </div>
+        </div>
+        <figcaption>★ the birthday girl ★</figcaption>
+      </figure>
+
+      <!-- Hello Kitty host (right) — drop assets/hellokitty.png to use real art -->
+      <div class="char host-kitty">
+        <img class="real-art" alt="Hello Kitty"
+             src="assets/hellokitty.png"
+             onerror="this.closest('.char').classList.add('no-art')" />
+        <svg class="kitty fallback-svg" viewBox="0 0 210 180" role="img" aria-label="Hello Kitty style cat">
+          <ellipse cx="105" cy="98" rx="92" ry="74" fill="#ffffff" stroke="#2b2b2b" stroke-width="3"/>
+          <path d="M44 44 q-8 -34 22 -34 q22 2 26 30 q-26 -8 -48 4z" fill="#fff" stroke="#2b2b2b" stroke-width="3"/>
+          <path d="M166 44 q8 -34 -22 -34 q-22 2 -26 30 q26 -8 48 4z" fill="#fff" stroke="#2b2b2b" stroke-width="3"/>
+          <ellipse cx="78" cy="96" rx="6.5" ry="9" fill="#2b2b2b"/>
+          <ellipse cx="132" cy="96" rx="6.5" ry="9" fill="#2b2b2b"/>
+          <ellipse cx="105" cy="108" rx="9" ry="6" fill="#ffd24d"/>
+          <g stroke="#9a9a9a" stroke-width="2.5" stroke-linecap="round">
+            <line x1="20" y1="92" x2="56" y2="88"/><line x1="18" y1="104" x2="55" y2="102"/><line x1="22" y1="116" x2="57" y2="114"/>
+            <line x1="190" y1="92" x2="154" y2="88"/><line x1="192" y1="104" x2="155" y2="102"/><line x1="188" y1="116" x2="153" y2="114"/>
+          </g>
+          <g class="kitty-bow">
+            <path d="M150 44 q-22 -16 -2 -30 q14 8 8 26z" fill="#ff4d6d" stroke="#c9264a" stroke-width="2"/>
+            <path d="M150 44 q22 -16 2 -30 q-14 8 -8 26z" fill="#ff4d6d" stroke="#c9264a" stroke-width="2"/>
+            <circle cx="151" cy="40" r="7" fill="#ff738d" stroke="#c9264a" stroke-width="2"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown" id="countdown" aria-live="polite">
+      <p class="cd-label" id="cdLabel">the party starts in…</p>
+      <div class="cd-units">
+        <div class="cd-cell"><span id="cdD">--</span><small>days</small></div>
+        <div class="cd-cell"><span id="cdH">--</span><small>hrs</small></div>
+        <div class="cd-cell"><span id="cdM">--</span><small>min</small></div>
+        <div class="cd-cell"><span id="cdS">--</span><small>sec</small></div>
+      </div>
+      <p class="cd-tz">Philippine Time ✦ June 20</p>
+    </div>
+
+    <a href="#cake" class="scroll-cue">scroll down for cake 🎂 <span>▾</span></a>
+  </header>
+
+  <!-- CAKE SECTION -->
+  <section id="cake" class="section cake-section">
+    <h2 class="sec-title">Make a wish, Pretty!</h2>
+    <p class="sec-sub">Tap each candle to blow it out — all 18 of them. 🌬️</p>
+
+    <div class="cake-wrap">
+      <div class="candles" id="candles"></div>
+      <div class="cake">
+        <div class="cake-top"></div>
+        <div class="cake-drip"></div>
+        <div class="cake-mid"></div>
+        <div class="cake-base"></div>
+        <span class="cake-deco d1">🍓</span>
+        <span class="cake-deco d2">🍓</span>
+        <span class="cake-deco d3">🍓</span>
+      </div>
+      <p class="cake-count"><span id="lit">18</span> candles still glowing</p>
+    </div>
+    <p class="cake-done" id="cakeDone" hidden>· All candles out — wish made! ·</p>
+  </section>
+
+  <!-- MESSAGE SECTION -->
+  <section id="message" class="section message-section">
+    <h2 class="sec-title">A letter is waiting for you</h2>
+    <p class="sec-sub">It's sealed with a little heart. Tap to open it. 💌</p>
+
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open your birthday letter">
+      <div class="env-back"></div>
+      <div class="env-letter" id="envLetter">
+        <p class="letter-head">For Pretty 💚</p>
+        <p class="letter-body" id="letterBody"></p>
+        <p class="letter-sign">— from your friend</p>
+      </div>
+      <div class="env-front"></div>
+      <div class="env-flap"></div>
+      <div class="env-heart">♥</div>
+    </div>
+    <p class="env-hint" id="envHint">tap the envelope</p>
+  </section>
+
+  <!-- FUN / MINI GAMES -->
+  <section id="fun" class="section fun-section">
+    <h2 class="sec-title">Party games with the gang</h2>
+    <p class="sec-sub">Pick something fun — they all want to play with you.</p>
+
+    <div class="fun-grid">
+      <!-- Jigglypuff sing -->
+      <div class="fun-card">
+        <div class="char mini char-jmini" id="jigglyMini">
+          <img class="real-art" alt="Jigglypuff"
+               src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png"
+               onerror="this.closest('.char').classList.add('no-art')" />
+          <svg class="jiggly fallback-svg" viewBox="0 0 200 200" aria-hidden="true">
+            <ellipse cx="100" cy="108" rx="86" ry="80" fill="#ffc3e1"/>
+            <ellipse cx="100" cy="118" rx="64" ry="56" fill="#ffe3f1"/>
+            <ellipse class="j-eye" cx="74" cy="96" rx="14" ry="19" fill="#1d3b5c"/>
+            <ellipse class="j-eye" cx="126" cy="96" rx="14" ry="19" fill="#1d3b5c"/>
+            <circle cx="79" cy="89" r="4.5" fill="#9fe0ff"/><circle cx="131" cy="89" r="4.5" fill="#9fe0ff"/>
+            <ellipse cx="60" cy="122" rx="8" ry="5" fill="#ff9ec6"/>
+            <ellipse cx="140" cy="122" rx="8" ry="5" fill="#ff9ec6"/>
+            <ellipse class="j-mouth" cx="100" cy="128" rx="10" ry="7" fill="#c14f86"/>
+          </svg>
+        </div>
+        <h3>Jigglypuff's song</h3>
+        <p>A sweet little tune, just for you.</p>
+        <button class="fun-btn" id="singBtn">♫ Sing to me</button>
+      </div>
+
+      <!-- Feed Snorlax -->
+      <div class="fun-card">
+        <div class="char mini char-snormini" id="snorlaxMini">
+          <img class="real-art" alt="Snorlax"
+               src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png"
+               onerror="this.closest('.char').classList.add('no-art')" />
+          <svg class="snorlax fallback-svg" viewBox="0 0 260 220" aria-hidden="true">
+            <ellipse cx="130" cy="135" rx="100" ry="76" fill="#2f4f6e"/>
+            <ellipse cx="130" cy="150" rx="78" ry="58" fill="#f3e9cf"/>
+            <circle cx="104" cy="104" r="6" fill="#1d2f43"/>
+            <circle cx="156" cy="104" r="6" fill="#1d2f43"/>
+            <path class="snor-mini-mouth" d="M116 126 q14 14 28 0" fill="none" stroke="#1d2f43" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Feed Snorlax</h3>
+        <p>His favorite! Feed him <span id="treats">0</span>/10 treats.</p>
+        <button class="fun-btn" id="feedBtn">🍎 Give a treat</button>
+      </div>
+
+      <!-- Balloons -->
+      <div class="fun-card">
+        <div class="balloon-preview">🎈🎈🎈</div>
+        <h3>Pop the balloons</h3>
+        <p>Let loose a sky full of birthday balloons.</p>
+        <button class="fun-btn" id="balloonBtn">🎈 Release balloons</button>
+      </div>
+
+      <!-- Confetti -->
+      <div class="fun-card">
+        <div class="balloon-preview">🎉🎊·</div>
+        <h3>Confetti blast</h3>
+        <p>Because every wish deserves a celebration.</p>
+        <button class="fun-btn" id="confettiBtn">🎉 Celebrate!</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-gang">
+      <div class="char tiny">
+        <img class="real-art" alt="Snorlax"
+             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png"
+             onerror="this.closest('.char').classList.add('no-art')" />
+        <svg class="snorlax fallback-svg" viewBox="0 0 260 220" aria-hidden="true"><ellipse cx="130" cy="135" rx="100" ry="76" fill="#2f4f6e"/><ellipse cx="130" cy="150" rx="78" ry="58" fill="#f3e9cf"/><path d="M92 104 q12 9 24 0" fill="none" stroke="#1d2f43" stroke-width="6" stroke-linecap="round"/><path d="M144 104 q12 9 24 0" fill="none" stroke="#1d2f43" stroke-width="6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="char tiny">
+        <img class="real-art" alt="Jigglypuff"
+             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png"
+             onerror="this.closest('.char').classList.add('no-art')" />
+        <svg class="jiggly fallback-svg" viewBox="0 0 200 200" aria-hidden="true"><ellipse cx="100" cy="108" rx="86" ry="80" fill="#ffc3e1"/><ellipse cx="100" cy="118" rx="64" ry="56" fill="#ffe3f1"/><circle cx="74" cy="96" r="9" fill="#1d3b5c"/><circle cx="126" cy="96" r="9" fill="#1d3b5c"/></svg>
+      </div>
+      <div class="char tiny">
+        <img class="real-art" alt="Hello Kitty"
+             src="assets/hellokitty.png"
+             onerror="this.closest('.char').classList.add('no-art')" />
+        <svg class="kitty fallback-svg" viewBox="0 0 210 180" aria-hidden="true"><ellipse cx="105" cy="98" rx="92" ry="74" fill="#fff" stroke="#2b2b2b" stroke-width="4"/><circle cx="78" cy="96" r="6" fill="#2b2b2b"/><circle cx="132" cy="96" r="6" fill="#2b2b2b"/><ellipse cx="105" cy="108" rx="8" ry="5" fill="#ffd24d"/></svg>
+      </div>
+    </div>
+    <p>made with 💚 for Pretty's debut · the gang loves you</p>
+  </footer>
+</main>
+
+<!-- music toggle -->
+<button id="musicBtn" class="music-btn" hidden aria-label="Toggle party music">♪</button>
+
+<script src="script.js"></script>
+</body>
+</html>
