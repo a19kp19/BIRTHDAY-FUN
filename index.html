@@ -13,6 +13,15 @@
 </head>
 <body>
 
+<!-- ===== Cinematic parallax scene (day → night) ===== -->
+<div id="scene" class="scene" aria-hidden="true">
+  <div class="sun-moon" id="sunMoon"></div>
+  <div class="stars" id="stars"></div>
+  <div class="night-overlay"></div>
+  <div class="layer hills-far" id="hillsFar"></div>
+  <div class="layer hills-near" id="hillsNear"></div>
+</div>
+
 <!-- ===== Floating background decorations ===== -->
 <div class="sky" aria-hidden="true"></div>
 <div id="floaties" class="floaties" aria-hidden="true"></div>
@@ -74,6 +83,22 @@
 <!-- ===== MAIN PARTY ===== -->
 <main id="party" class="party" hidden>
 
+  <!-- birthday-day banner (revealed when the countdown reaches her day) -->
+  <div id="bdayBanner" class="bday-banner" hidden role="status">
+    IT'S YOUR DEBUT DAY, PRETTY!
+    <button class="bday-close" id="bdayClose" aria-label="Close banner">×</button>
+  </div>
+
+  <!-- journey rail: jump between stages -->
+  <nav id="journey" class="journey" aria-label="Jump to a stage">
+    <a href="#party"   class="jdot" data-sec="topHero" title="Top"     aria-label="Top"></a>
+    <a href="#cake"    class="jdot" data-sec="cake"    title="Cake"    aria-label="Cake"></a>
+    <a href="#message" class="jdot" data-sec="message" title="Letter"  aria-label="Letter"></a>
+    <a href="#fun"     class="jdot" data-sec="fun"     title="Games"   aria-label="Games"></a>
+    <a href="#hosts"   class="jdot" data-sec="hosts"   title="Hosts"   aria-label="Hosts"></a>
+    <a href="#finale"  class="jdot" data-sec="finale"  title="Finale"  aria-label="Finale"></a>
+  </nav>
+
   <!-- HERO -->
   <header class="hero">
     <div class="banner">
@@ -121,7 +146,7 @@
         <figcaption>★ the birthday girl ★</figcaption>
       </figure>
 
-      <!-- Hello Kitty host (right) — drop assets/hellokitty.png to use real art -->
+      <!-- Hello Kitty host (right) — transparent assets/hellokitty.gif, SVG fallback if it fails -->
       <div class="char host-kitty">
         <img class="real-art" alt="Hello Kitty"
              src="assets/hellokitty.gif"
@@ -146,6 +171,8 @@
       </div>
     </div>
 
+    <p class="tap-hint" id="tapHint">psst… tap the gang to play with them ♪</p>
+
     <!-- Countdown -->
     <div class="countdown" id="countdown" aria-live="polite">
       <p class="cd-label" id="cdLabel">the party starts in…</p>
@@ -164,7 +191,7 @@
   <!-- CAKE SECTION -->
   <section id="cake" class="section cake-section">
     <h2 class="sec-title">Make a wish, Pretty!</h2>
-    <p class="sec-sub">Tap each candle to blow it out — all 18 of them. 🌬️</p>
+    <p class="sec-sub">Swipe across the candles to blow them all out — all 18 of them.</p>
 
     <div class="cake-wrap">
       <div class="candles" id="candles"></div>
@@ -224,6 +251,7 @@
             <ellipse class="j-mouth" cx="100" cy="128" rx="10" ry="7" fill="#c14f86"/>
           </svg>
         </div>
+        <img class="action-clip" id="jigglyClip" alt="Jigglypuff singing a song" hidden />
         <h3>Jigglypuff's song</h3>
         <p>A sweet little tune, just for you.</p>
         <button class="fun-btn" id="singBtn">♫ Sing to me</button>
@@ -243,6 +271,7 @@
             <path class="snor-mini-mouth" d="M116 126 q14 14 28 0" fill="none" stroke="#1d2f43" stroke-width="4" stroke-linecap="round"/>
           </svg>
         </div>
+        <img class="action-clip" id="snorlaxClip" alt="Snorlax happily eating" hidden />
         <h3>Feed Snorlax</h3>
         <p>His favorite! Feed him <span id="treats">0</span>/10 treats.</p>
         <button class="fun-btn" id="feedBtn">🍎 Give a treat</button>
@@ -263,6 +292,56 @@
         <p>Because every wish deserves a celebration.</p>
         <button class="fun-btn" id="confettiBtn">🎉 Celebrate!</button>
       </div>
+    </div>
+  </section>
+
+  <!-- MEET THE HOSTS -->
+  <section id="hosts" class="section hosts-section">
+    <h2 class="sec-title">Meet the party hosts</h2>
+    <p class="sec-sub">Pretty's three favorites — tap each one to learn a fun fact!</p>
+
+    <div class="hosts-grid">
+      <article class="host-card hc-snorlax" data-host="snorlax" tabindex="0" role="button" aria-label="Snorlax — tap for a fun fact">
+        <span class="hc-badge">#143</span>
+        <div class="hc-art"><img class="hc-gif" src="assets/snorlax_host.gif" alt="Snorlax" /></div>
+        <h3>Snorlax</h3>
+        <p class="hc-type">Normal type · the sleepy big guy</p>
+        <p class="hc-fact">It's known to eat nearly 900 lbs of food before dozing right back off.</p>
+        <span class="hc-cta">tap for another fact</span>
+      </article>
+
+      <article class="host-card hc-jiggly" data-host="jiggly" tabindex="0" role="button" aria-label="Jigglypuff — tap for a fun fact">
+        <span class="hc-badge">#39</span>
+        <div class="hc-art"><img class="hc-gif" src="assets/jiggly_host.gif" alt="Jigglypuff" /></div>
+        <h3>Jigglypuff</h3>
+        <p class="hc-type">Fairy / Normal · the gentle singer</p>
+        <p class="hc-fact">Its gentle lullaby puts anyone who listens straight to sleep.</p>
+        <span class="hc-cta">tap for another fact</span>
+      </article>
+
+      <article class="host-card hc-kitty" data-host="kitty" tabindex="0" role="button" aria-label="Hello Kitty — tap for a fun fact">
+        <span class="hc-badge">SINCE '74</span>
+        <div class="hc-art"><img class="hc-gif" src="assets/kitty_host.gif" alt="Hello Kitty" /></div>
+        <h3>Hello Kitty</h3>
+        <p class="hc-type">Sanrio · the sweetest host</p>
+        <p class="hc-fact">Her real name is Kitty White, and she lives just outside London.</p>
+        <span class="hc-cta">tap for another fact</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- GRAND FINALE -->
+  <section id="finale" class="section finale-section">
+    <h2 class="sec-title">The grand finale</h2>
+    <p class="sec-sub">Press the button and let the whole gang throw the biggest cheer for you.</p>
+    <div class="lights" id="nameLights" aria-label="PRETTY">
+      <span>P</span><span>R</span><span>E</span><span>T</span><span>T</span><span>Y</span>
+    </div>
+    <button class="finale-btn" id="finaleBtn">Start the celebration</button>
+    <div class="finale-gang" aria-hidden="true">
+      <img class="fg" id="fgJiggly" src="assets/jiggly_party.gif" alt="" />
+      <img class="fg" id="fgSnorlax" src="assets/snorlax_party.gif" alt="" />
+      <img class="fg" id="fgKitty" src="assets/kitty_party.gif" alt="" />
     </div>
   </section>
 
@@ -293,6 +372,9 @@
 
 <!-- music toggle -->
 <button id="musicBtn" class="music-btn" hidden aria-label="Toggle party music">♪</button>
+
+<!-- fireworks overlay for the finale -->
+<canvas id="fireworks" class="fireworks" aria-hidden="true"></canvas>
 
 <script src="script.js"></script>
 </body>
